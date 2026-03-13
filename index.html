@@ -8,7 +8,7 @@
     <meta name="referrer" content="no-referrer" />
     
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>Videy</title>
+    <title>Seputar Link Videy</title>
     
     <!-- UI Styling (Tailwind) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -104,6 +104,9 @@
             // LOGIKA DOMAIN PROVIDER
             // ==========================================
             const providers = {
+                // HGCloud (?x=...)
+                'x': (val) => `https://hgcloud.to/e/${val}`,
+
                 // Short.icu (?id=...)
                 'id': (val) => `https://short.icu/${val}`,
                 
@@ -142,15 +145,10 @@
             if (videoSrc) {
                 renderPlayer(videoSrc, container, activeProvider);
             } else {
+                // Tampilan saat parameter kosong (Teks pilihan embed sudah dihapus)
                 container.innerHTML = `
                     <div class='flex flex-col items-center justify-center h-full text-white text-sm absolute inset-0 p-4 text-center'>
-                        <p class="mb-2 font-semibold text-lg">Parameter Kosong</p>
-                        <p class="text-gray-400 text-xs">Gunakan format URL:<br>
-                        ?id=... (Short.icu)<br>
-                        ?t=... (Turbovid)<br>
-                        ?s=... (Rubyvid)<br>
-                        ?m=... (Mixdrop)<br>
-                        ?b=... (Bysejikuar)</p>
+                        <p class="font-semibold text-lg">Parameter Kosong</p>
                     </div>`;
             }
         };
