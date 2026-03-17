@@ -1,166 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="unsafe-url" />
     
-    <!-- ANTI-REFERRER: Memutus jejak asal website (Penting agar embed tidak memblokir domain kita) -->
-    <meta name="referrer" content="no-referrer" />
-    
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>King Bawok</title>
-    
-    <!-- UI Styling (Tailwind) -->
+    <meta name="theme-color" content="#f8fafc">
+    <link rel="icon" href="https://i.ibb.co.com/5gH57Fz2/03920ba8-951d-4cea-b133-1c1c4a0f917b.png" sizes="192x192" type="image/png">
+    <meta property="og:type" content="video.other" />
+    <meta property="og:title" content="King Bawok" />
+    <meta property="og:description" content="Nonton Video" />
+    <meta property="og:image" content="https://i.ibb.co.com/5gH57Fz2/03920ba8-951d-4cea-b133-1c1c4a0f917b.png" />
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Library HLS.js untuk memutar .m3u8 (jika direct link) -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
         body { font-family: 'Poppins', sans-serif; background-color: #fff; }
-        
-        /* Container agar Pas 16:9 */
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            background: #000;
-        }
-        
-        /* Memastikan iframe dan video tag memenuhi container */
-        .video-container iframe,
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-        }
+        .video-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; background: #000; }
+        .video-container iframe, .video-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
     <div id="root" class="flex flex-col min-h-screen">
-        <!-- HEADER -->
         <header class="pt-3 pb-3 lg:pt-4 lg:pb-4">
-            <div class="max-w-6xl mx-auto px-6 lg:px-8">
-                <div class="flex items-center justify-between">
-                    <a href="/" class="flex items-center">
-                        <span class="font-semibold text-[26px] tracking-[-2px] text-gray-900">videy</span>
-                    </a>
-                    <a href="/" class="flex items-center space-x-2 px-4 py-1.5 bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-800 transition-colors text-[15px]">
-                        <span>Upload</span>
-                    </a>
-                </div>
+            <div class="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between">
+                <a href="/" class="flex items-center"><span class="font-semibold text-[26px] tracking-[-2px] text-gray-900">videy</span></a>
+                <a href="/" class="px-4 py-1.5 bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-800 text-[15px]">Upload</a>
             </div>
         </header>
 
-        <!-- MAIN CONTENT -->
         <main class="w-full max-w-[720px] mx-auto flex-grow px-0 md:px-4 md:mt-3">
-            <div class="w-full flex justify-center">
-                <div class="w-full overflow-hidden md:rounded-[8px] shadow-lg">
-                    <!-- Container Player -->
-                    <div class="video-container" id="player-container">
-                        <div class="flex items-center justify-center h-full text-white text-sm absolute inset-0 bg-black">
-                            Menunggu parameter URL...
-                        </div>
+            <div class="w-full flex justify-center overflow-hidden md:rounded-[8px] shadow-lg">
+                <div class="video-container" id="player-container">
+                    <div class="flex items-center justify-center h-full text-white text-sm absolute inset-0 bg-black">
+                        Menunggu parameter URL...
                     </div>
                 </div>
             </div>
 
-            <!-- SHARE BUTTON -->
             <div class="w-full flex flex-col items-center mt-4 mb-12">
-                <button onclick="shareVideo()" class="inline-flex items-center justify-center whitespace-nowrap text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 text-secondary-foreground shadow-sm h-9 py-2 rounded-full px-6 gap-2 bg-gray-100 hover:bg-gray-200 font-semibold">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share w-[18px] h-[18px]">
-                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                        <polyline points="16 6 12 2 8 6"></polyline>
-                        <line x1="12" x2="12" y1="2" y2="15"></line>
-                    </svg>
+                <button onclick="shareVideo()" class="inline-flex items-center justify-center h-9 py-2 rounded-full px-6 gap-2 bg-gray-100 hover:bg-gray-200 font-semibold text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" x2="12" y1="2" y2="15"></line></svg>
                     Share video
                 </button>
             </div>
         </main>
-
-        <!-- FOOTER -->
-        <footer class="pb-6">
-            <div class="max-w-6xl mx-auto px-6 lg:px-8">
-                <div class="flex items-center justify-center space-x-8">
-                    <a href="#" class="text-xs text-gray-400 hover:text-gray-900 transition-colors">Terms of Service</a>
-                    <a href="#" class="text-xs text-gray-400 hover:text-gray-900 transition-colors">Report Abuse</a>
-                </div>
-            </div>
-        </footer>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (sessionStorage.getItem("adPassed")) {
+                sessionStorage.removeItem("adPassed");
+            } else {
+                let overlay = document.createElement("div");
+                overlay.style.cssText = "position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;background:transparent;cursor:pointer;";
+                document.body.appendChild(overlay);
+
+                overlay.addEventListener("click", function() {
+                    sessionStorage.setItem("adPassed", "true"); 
+                    overlay.remove();
+                    window.open(window.location.href, "_blank");
+                    window.location.href = "https://omg10.com/4/10390860";
+                });
+            }
+        });
+    </script>
+
+    <script>
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: 'King Bawok',
+                artist: 'Video Player',
+                artwork: [{ src: 'https://i.ibb.co.com/5gH57Fz2/03920ba8-951d-4cea-b133-1c1c4a0f917b.png', sizes: '512x512', type: 'image/png' }]
+            });
+        }
+    </script>
 
     <script>
         window.onload = function() {
             const container = document.getElementById('player-container');
             const params = new URLSearchParams(window.location.search);
 
-            // ==========================================
-            // LOGIKA DOMAIN PROVIDER
-            // ==========================================
             const providers = {
-                // HGCloud (?x=...)
                 'x': (val) => `https://hgcloud.to/e/${val}`,
-
-                // Short.icu (?id=...)
                 'id': (val) => `https://short.icu/${val}`,
-                
-                // Turbovid (?t=...)
                 't': (val) => `https://turbovidhls.com/t/${val}`,
-                
-                // RubyVid (?s=...) -> Format embed-ID.html
                 's': (val) => `https://rubyvidhub.com/embed-${val}.html`,
-                
-                // Mixdrop (?m=...)
                 'm': (val) => `https://kuntul.4meplayer.com/#${val}`,
-                
-                // Bysejikuar (?b=...)
                 'b': (val) => `https://bysejikuar.com/e/${val}`,
-
-                // Direct URL manual (?url=...)
+                'd': (val) => `https://d000d.com/e/${val}`,
                 'url': (val) => val 
             };
 
             let videoSrc = null;
             let activeProvider = null;
 
-            // Loop semua parameter URL
             for (const [key, func] of Object.entries(providers)) {
-                if (params.has(key)) {
-                    const videoId = params.get(key);
-                    if (videoId) {
-                        videoSrc = func(videoId);
-                        activeProvider = key; // Menyimpan parameter mana yang aktif
-                        break;
-                    }
+                if (params.has(key) && params.get(key)) {
+                    videoSrc = func(params.get(key));
+                    activeProvider = key; 
+                    break;
                 }
             }
 
-            // Render Player
             if (videoSrc) {
                 renderPlayer(videoSrc, container, activeProvider);
             } else {
-                // Tampilan saat parameter kosong (Teks pilihan embed sudah dihapus)
-                container.innerHTML = `
-                    <div class='flex flex-col items-center justify-center h-full text-white text-sm absolute inset-0 p-4 text-center'>
-                        <p class="font-semibold text-lg">Parameter Kosong</p>
-                    </div>`;
+                container.innerHTML = `<div class='flex items-center justify-center h-full text-white text-sm absolute inset-0 p-4 font-semibold text-lg'>Parameter Kosong</div>`;
             }
         };
 
         function renderPlayer(url, container, provider) {
             const lowerUrl = url.toLowerCase();
 
-            // 1. Direct HLS (.m3u8)
             if (lowerUrl.includes('.m3u8')) {
                 container.innerHTML = '<video id="hls-player" controls playsinline style="width:100%; height:100%;"></video>';
                 const video = document.getElementById('hls-player');
-                
                 if (Hls.isSupported()) {
                     const hls = new Hls();
                     hls.loadSource(url);
@@ -168,42 +127,17 @@
                 } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
                     video.src = url;
                 }
-            } 
-            // 2. Direct MP4 (.mp4)
-            else if (lowerUrl.includes('.mp4')) {
+            } else if (lowerUrl.includes('.mp4')) {
                 container.innerHTML = `<video controls playsinline src="${url}" style="width:100%; height:100%;"></video>`;
-            } 
-            // 3. Embed IFRAME
-            else {
-                // Logika penambahan sandbox khusus provider 't' dan 's'
-                let sandboxAttr = "";
-                if (provider === 't' || provider === 's') {
-                    // Block pop-up & top-navigation (Anti iklan). 
-                    // Hanya izinkan script berjalan & cross-origin agar player bisa memuat video
-                    sandboxAttr = 'sandbox="allow-scripts allow-same-origin allow-presentation"';
-                }
-
-                container.innerHTML = `
-                    <iframe 
-                        src="${url}" 
-                        width="100%"
-                        height="100%"
-                        frameborder="0" 
-                        scrolling="no" 
-                        allowfullscreen="true"
-                        referrerpolicy="no-referrer"
-                        ${sandboxAttr}>
-                    </iframe>
-                `;
+            } else {
+                let sandboxAttr = (provider === 't' || provider === 's') ? 'sandbox="allow-scripts allow-same-origin allow-presentation"' : "";
+                container.innerHTML = `<iframe src="${url}" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen="true" referrerpolicy="unsafe-url" ${sandboxAttr}></iframe>`;
             }
         }
 
         function shareVideo() {
             if (navigator.share) {
-                navigator.share({
-                    title: 'Nonton Video',
-                    url: window.location.href
-                }).catch(console.error);
+                navigator.share({ title: 'King Bawok', url: window.location.href }).catch(console.error);
             } else {
                 const dummy = document.createElement('input');
                 document.body.appendChild(dummy);
